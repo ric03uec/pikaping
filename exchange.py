@@ -260,13 +260,17 @@ class Exchange(object):
         self._channel.close()
 
     def timeout_callback(self):
-        self._logger.debug('Timeout callback called')
+        self._logger.debug('----------------------------------------')
+        self._logger.debug('----------------------------------------')
+        self._logger.debug('Queue Timeout callback called')
+        self._logger.debug('----------------------------------------')
 
     def open_channel(self):
         self._logger.debug('Creating a new channel')
 
         ###### Add timeout to channel ######
-        # self._connection.add_timeout(config['QUEUE_TIMEOUT'], self.timeout_callback)
+        if config['ADD_CONNECTION_TIMEOUT']:
+            self._connection.add_timeout(config['QUEUE_TIMEOUT'], self.timeout_callback)
         ######
 
         self._connection.channel(on_open_callback=self.on_channel_open)
