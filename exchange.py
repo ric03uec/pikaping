@@ -4,6 +4,8 @@ import time
 import json
 import uuid
 
+from config import config
+
 class Exchange(object):
 
     EXCHANGE_TYPE = 'topic'
@@ -257,10 +259,17 @@ class Exchange(object):
         self._logger.debug('Closing the channel')
         self._channel.close()
 
+    def timeout_callback(self):
+        self._logger.debug('Timeout callback called')
+
     def open_channel(self):
         self._logger.debug('Creating a new channel')
+
+        ###### Add timeout to channel ######
+        # self._connection.add_timeout(config['QUEUE_TIMEOUT'], self.timeout_callback)
+        ######
+
         self._connection.channel(on_open_callback=self.on_channel_open)
-        #print('created channel')
 
     def run(self):
         self._connection = self.connect()

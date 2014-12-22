@@ -1,12 +1,14 @@
+import time
 from exchange import Exchange
 from config import config
 
 def queue_callback(message, is_redelivered):
     print 'callback called'
     print message
+
     # acknowledge this after a long time
-    #
-    #
+    time.sleep(config['PROCESS_EXEC_TIME'])
+
     response = {}
     response['success'] = True
 
