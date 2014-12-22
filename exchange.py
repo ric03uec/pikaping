@@ -283,22 +283,3 @@ class Exchange(object):
         self.stop_consuming()
         #self._connection.ioloop.start()
         self._logger.debug('Stopped')
-
-def queue_callback(message):
-    print 'callback called'
-    print message
-
-if __name__ == '__main__':
-    config = {}
-    config['DEFAULT_EXCHANGE'] = 'test.exchange'
-
-    url = "amqps://F7694B66323B03AB:50FF4551B14AF719@172.17.42.1:5671/shippable"
-    listen_queue_name = 'listen.queue'
-    requeueOnFailure = False
-
-    exchange = Exchange(config,
-            url, listen_queue_name, 
-            None, queue_callback,
-            requeueOnFailure)
-
-    exchange.run()
